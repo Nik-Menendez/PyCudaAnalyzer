@@ -2,7 +2,7 @@ import os
 from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
-input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/signal/new"
+input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/signal/new3"
 tree_path_in_file = "passedEvents"
 
 mass_points = [15,20,30,45,60]

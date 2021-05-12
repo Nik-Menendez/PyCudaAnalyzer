@@ -9,12 +9,16 @@ class Hist1D(object):
         self.xlow  = xlow
         self.xhigh = xhigh
         self.content, self.edges = np.histogram([], bins=nbins, range=(xlow, xhigh))
+        #self.content, self.edges = np.histogram([], bins=[5,10,20,30,45,100])#nbins, range=(xlow, xhigh))
+        #self.content, self.edges = np.histogram([], bins=[5,10,20,30,45,60,80,100])#nbins, range=(xlow, xhigh))
         self.content = self.content.astype(np.float64)
         self.error2 = self.content.astype(np.float64)
         self.bins = (self.edges[:-1] + self.edges[1:]) / 2.
 
     def fill(self, arr, weights=None):
         content, edges = np.histogram(arr, bins=self.nbins, range=(self.xlow, self.xhigh), weights=weights,)
+        #content, edges = np.histogram(arr, bins=[5,10,20,30,45,100], weights=weights,)#self.nbins, range=(self.xlow, self.xhigh), weights=weights,)
+        #content, edges = np.histogram(arr, bins=[5,10,20,30,45,60,80,100], weights=weights,)#self.nbins, range=(self.xlow, self.xhigh), weights=weights,)
         self.content += content
         self.error2 += np.square(content)
 

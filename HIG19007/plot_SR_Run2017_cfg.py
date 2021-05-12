@@ -8,8 +8,8 @@ from hep.cms.Weighter.CrossSectionWeighter import CrossSectionWeighter
 
 from Stat.Hist1D import Hist1D
 
-from RunPlotter.RunPlotter import RunPlotter
-from RunPlotter.Plot import Plot
+from hep.RunPlotter.RunPlotter import RunPlotter
+from hep.RunPlotter.Plot import Plot
 
 from Zprime.Skimmer.AnalysisSkimmer import SignalRegionSkimmer
 from Zprime.Weighter.DataMCWeighter import DataMCWeighter
