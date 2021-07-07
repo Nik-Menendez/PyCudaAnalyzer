@@ -2,8 +2,8 @@ import os
 from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
-#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/signal/new3"
 input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/signal/"
+#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/signal/signal_sel/"
 tree_path_in_file = "passedEvents"
 
 mass_points = [4,5,10,15,30,60]
@@ -89,6 +89,12 @@ for m,sig in wm_sample_dict.items():
         "IsoL1",
         "IsoL2",
         "IsoL3",
+		#"ip3dL1",
+		#"ip3dL2",
+		#"ip3dL3",
+		#"sip3dL1",
+		#"sip3dL2",
+		#"sip3dL3",
         "tightIdL1",
         "tightIdL2",
         "tightIdL3",
@@ -129,6 +135,12 @@ for m,sig in wp_sample_dict.items():
         "IsoL1",
         "IsoL2",
         "IsoL3",
+		#"ip3dL1",
+		#"ip3dL2",
+		#"ip3dL3",
+		#"sip3dL1",
+		#"sip3dL2",
+		#"sip3dL3",
         "tightIdL1",
         "tightIdL2",
         "tightIdL3",

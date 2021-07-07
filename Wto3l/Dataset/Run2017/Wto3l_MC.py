@@ -3,16 +3,16 @@ from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
 # ____________________________________________________________________________________________________________________________________________ ||
-#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/2017/"
-#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/test/new_dimu/"
-input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/"
+#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/"
+input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/background/signal_sel/pt/"
+#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/background/control_sel/pt/"
 tree_path_in_file = "passedEvents"
 
 #sumws = [39505108.0,48655356.0,15005665.0,10536966.0]
 #sumws = [37951928.0,18700012.0,100907248.0,8721088.0,20897068.0]
 sumws = [39505301.0,459628904471.0,28349068.0,94563223.0,55658966.0,33043732.0,22155848.0]
 
-sum_check = 1.0#0.5
+sum_check = 1.0 #0.5
 
 # ____________________________________________________________________________________________________________________________________________ ||
 DYJetsToLL_M10To50_2017 = CMSDataset(
@@ -103,6 +103,12 @@ for b in bkgSamples_2017:
 		"IsoL1",
 		"IsoL2",
 		"IsoL3",
+		"ip3dL1",
+		"ip3dL2",
+		"ip3dL3",
+		"sip3dL1",
+		"sip3dL2",
+		"sip3dL3",
 		"tightIdL1",
     	"tightIdL2",
     	"tightIdL3",
@@ -117,6 +123,8 @@ for b in bkgSamples_2017:
 		"trueL3",
 		"m3l",
 		"mt",
+		"passedDiMu",
+		"passedTriMu",
                 ]
 
 #for b in bkgSamples_2017:

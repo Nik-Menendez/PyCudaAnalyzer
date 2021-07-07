@@ -83,12 +83,14 @@ class RunPlotter(Module):
         gs = fig.add_gridspec(10,1)
         
         mc_bin_content,mc_bin_error2,mc_bin_edges,mc_bin_centers = self.make_mc_array_1d(mc_list)
+        mc_bin_content = mc_bin_content.clip(min=0)
 
         plt.hist(mc_bin_centers, bins=mc_bin_edges[:,0], weights=mc_bin_content,stacked=True,label=[mc.plot_name+": {:.2f}".format(np.sum(mc.hist.content),) for mc in mc_list])
                         
         for sig in signal_list:
             plt.hist(sig.hist.numpy_centers, bins=sig.hist.numpy_edges[:,0], weights=sig.hist.numpy_content,label=sig.plot_name+": {:.2f}".format(np.sum(sig.hist.content),),histtype='step',linewidth=2,)
         plt.legend(loc='best')
+        plt.ylim(bottom=0)
 
         output_path = os.path.join(cfg.collector.output_path,p.name+".png")
         fig.savefig(output_path)
@@ -115,6 +117,7 @@ class RunPlotter(Module):
         #for x in np.nditer(mc_bin_content, order='C'):
         #    print(' %.0f,' % x, end='')
         #print()
+        mc_bin_content = mc_bin_content.clip(min=0)
 
         ax1.hist(mc_bin_centers, bins=mc_bin_edges[:,0], weights=mc_bin_content,stacked=True,label=[mc.plot_name+": {:.2f}".format(np.sum(mc.hist.content),) for mc in mc_list])
         data_bin_error = self.make_data_error(data_total_bin_content) 
@@ -125,6 +128,8 @@ class RunPlotter(Module):
         ax1.legend(loc='best')
         dataMCratio = round(np.sum(data_total_bin_content)/np.sum(np.sum(mc_bin_content,axis=1)),2)
         ax1.text(0.0,1.0,'Data/Pred = '+str(dataMCratio),size=20,transform = ax1.transAxes)
+        #ax1.set_yscale('symlog')
+        ax1.set_ylim(bottom=0)
         
         ratio,ratioerr = self.make_data_mc_ratio(mc_bin_content,data_total_bin_content,data_bin_error,)
         ax2.errorbar(data_bin_centers,ratio,yerr=ratioerr,marker=".",linestyle="None", color=p.data_color,)

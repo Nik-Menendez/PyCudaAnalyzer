@@ -43,20 +43,24 @@ class ZSelector(Module):
 		# --------- Define Mass1 as (not) the highest pT muon + highest pT anti-muon -------------------------------------
 		#data["M1"] = (P3).mass*data["p3"] + (P2).mass*(data["p2"] & np.logical_not(data["p3"])) # pick lowest mass possible pair
 		#data["M2"] = (P1).mass*data["p1"] + (P2).mass*(data["p2"] & np.logical_not(data["p1"])) # pick higher mass possible pair
+		#data["M1"] = (P1).mass
+		#data["M2"] = (P2).mass*data["p2"] + (P3).mass*data["p3"]
 		# ----------------------------------------------------------------------------------------------------------------
 
 		# --------- Define Mass1 as (not) the highest pT muon + highest pT anti-muon -------------------------------------
+		M0 = (P1).mass*np.logical_not(data["p1"]) + (P2).mass*np.logical_not(data["p2"]) + (P3).mass*np.logical_not(data["p3"])
 		M1 = (P3).mass*data["p3"] + (P2).mass*(data["p2"] & np.logical_not(data["p3"]))
 		M2 = (P1).mass*data["p1"] + (P2).mass*(data["p2"] & np.logical_not(data["p1"]))
-		Zmass = 91.1876
-		Zdiff1 = np.abs(M1-Zmass)
-		Zdiff2 = np.abs(M2-Zmass)
-		Diff1C = Zdiff1 < Zdiff2
-		Diff2C = Zdiff1 > Zdiff2
-		data["M1"] = M1*Diff1C + M2*Diff2C
-		data["M2"] = M2*Diff1C + M1*Diff2C
-		#data["M1"] = np.fmin(M1,M2) # pick lowest mass possible pair
-		#data["M2"] = np.fmax(M1,M2) # pick higher mass possible pair
+		#Zmass = 91.1876
+		#Zdiff1 = np.abs(M1-Zmass)
+		#Zdiff2 = np.abs(M2-Zmass)
+		#Diff1C = Zdiff1 < Zdiff2
+		#Diff2C = Zdiff1 > Zdiff2
+		#data["M1"] = M1*Diff1C + M2*Diff2C
+		#data["M2"] = M2*Diff1C + M1*Diff2C
+		data["M0"] = M0
+		data["M1"] = np.fmax(M1,M2) # pick higher mass possible pair
+		data["M2"] = np.fmin(M1,M2) # pick lowest mass possible pair
         # ----------------------------------------------------------------------------------------------------------------
 
 		#data["M1"] = (P1).mass
@@ -66,6 +70,21 @@ class ZSelector(Module):
 		data["isMuL2"] = (np.abs(data["idL2"]) == 13).astype(int)
 		#data["isMuL3"] = (np.abs(data["idL3"]) == 13).astype(int)
 		data["nMu"] = data["isMuL1"] + data["isMuL2"]# + data["isMuL3"]
+
+		IsoM1 = np.fmax(data["IsoL1"],data["IsoL2"])
+		data["WorstIso"] = np.fmax(IsoM1,data["IsoL3"])
+		IpM1 = np.fmax(data["ip3dL1"],data["ip3dL2"])
+		data["WorstIP"] = np.fmax(IpM1,data["ip3dL3"])
+		SipM1 = np.fmax(data["sip3dL1"],data["sip3dL2"])
+		data["WorstSIP"] = np.fmax(SipM1,data["sip3dL3"])
+		PtM1 = np.fmax(data["pTL1"],data["pTL2"])
+		data["WorstPt"] = np.fmax(PtM1,data["pTL3"])
+		dRM1 = np.fmin(data["dR12"],data["dR13"])
+		data["LowestdR"] = np.fmin(dRM1,data["dR23"])
+		dRM2 = np.fmax(data["dR12"],data["dR13"])
+		data["HighestdR"] = np.fmax(dRM1,data["dR23"])
+		
+		data["SamedR"] = data["dR12"]*np.logical_not(data["p1"]) + data["dR13"]*np.logical_not(data["p2"]) + data["dR23"]*np.logical_not(data["p3"])
 
 		# --------- Define Mass1 From Neural Network ---------------------------------------------------------------------
 		#Selector_vars = ["pTL1","etaL1","phiL1","IsoL1","idL1",

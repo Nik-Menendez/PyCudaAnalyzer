@@ -4,21 +4,22 @@ from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
 # ______________________________________________________________________ ||
-#input_dir	= "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/data2017/new_dimu/"
-#input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/Di_Muon/"
-input_dir 	= "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/"
+#input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/"
+input_dir 	= "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/signal_sel/iso/"
+#input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/control_sel/"
+input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/signal_sel/"
 tree_path_in_file = "passedEvents"
 
 # ______________________________________________________________________ ||
 data2017 = CMSDataset(
         "Data2017",
-        [TFile(os.path.join(input_dir,"total_data_no_dupe.root"),tree_path_in_file,),],
+        [TFile(os.path.join(input_dir,"pt/total_data_no_dupe.root"),tree_path_in_file,),],
         isMC = False,
         )
 
 fake2017 = CMSDataset(
         "Fake_Weight_Data2017",
-        [TFile(os.path.join(input_dir,"total_data_no_dupe.root"),tree_path_in_file,),],
+        [TFile(os.path.join(input_dir,"iso/total_data_no_dupe.root"),tree_path_in_file,),],
         isMC = True,
 		skip_weight = True,
         )
@@ -49,6 +50,12 @@ for d in datas:
         "IsoL1",
         "IsoL2",
         "IsoL3",
+		"ip3dL1",
+		"ip3dL2",
+		"ip3dL3",
+		"sip3dL1",
+		"sip3dL2",
+		"sip3dL3",
         "tightIdL1",
         "tightIdL2",
         "tightIdL3",
@@ -63,6 +70,8 @@ for d in datas:
         "trueL3",
         "m3l",
         "mt",
+		"passedDiMu",
+		"passedTriMu",
                 ]
 
 #for d in datas:
