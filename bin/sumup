@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-python ${BASE_PATH}/sumup.py "$@"
+python3 ${BASE_PATH}/sumup.py "$@"
