@@ -2,7 +2,7 @@ from Common.Module import Module
 import uproot_methods
 import math as m
 import numpy as np
-import pandas as pd
+#import pandas as pd
 #from tensorflow.keras.models import load_model
 #from tensorflow.keras.backend import clear_session
 
@@ -13,16 +13,6 @@ class ZSelector(Module):
 		#clear_session()
 		#global ZModel
 		#ZModel = load_model('/blue/avery/nikmenendez/Wto3l/Analyzer/PyCudaAnalyzer/Wto3l/MVA/ZSelector_model_mass_test.h5')
-
-	def normalize(self,df):
-		mins = np.array([2.65,-2.399986,-3.141562,0.,-13.,1.33,-2.39997,-3.141574,0.,-13.,5.17,-2.399923,-3.141588,0.,-13.,.28749,-3.141591,.613,.7271,.837,0.,0.,0.,0.])
-		maxs = np.array([1742.62117,2.4,3.141587,4.511298,13.,62.98735,2.399974,3.141591,9.888725,13.,135.678162,2.399995,3.141589,4.849213,13.,146.858643,3.14158,5.847,4.8885,5.28722,1.,1.,1.,1.])
-		#mins = np.array([-2.399986,-3.141562,.,-13.,-2.39997,-3.141574,.,-13.,-2.399923,-3.141588,.,-13.,.28749,-3.141591,.613,.7271,.837,.,.,.,.])
-		#maxs = np.array([2.4,3.141587,4.511298,13.,2.399974,3.141591,9.888725,13.,2.399995,3.141589,4.849213,13.,146.858643,3.14158,5.847,4.8885,5.28722,1.,1.,1.,1.])
-		for i in range(df.size):
-			df[i] = (df[i] - mins[i]) / (maxs[i] - mins[i])
-		
-		return df
 
 	def analyze(self,data,dataset,cfg):
 		cfg.collector.Met = uproot_methods.classes.TLorentzVector.PtEtaPhiMassLorentzVectorArray(data["met"],0,data["met_phi"],0)
@@ -86,17 +76,4 @@ class ZSelector(Module):
 		
 		data["SamedR"] = data["dR12"]*np.logical_not(data["p1"]) + data["dR13"]*np.logical_not(data["p2"]) + data["dR23"]*np.logical_not(data["p3"])
 
-		# --------- Define Mass1 From Neural Network ---------------------------------------------------------------------
-		#Selector_vars = ["pTL1","etaL1","phiL1","IsoL1","idL1",
-		#				 "pTL2","etaL2","phiL2","IsoL2","idL2",
-		#				 "pTL3","etaL3","phiL3","IsoL3","idL3",
-		#				 "met","met_phi","dR12","dR13","dR23"]
-		#df = pd.DataFrame.from_dict(data)
-		#data["guess"] = np.argmax(ZModel.predict(df[Selector_vars]),axis=1)+1
-		#data["g3"] = (data["guess"]//3).astype(bool)
-		#data["g2"] = (data["guess"]//2).astype(bool) & ~(data["g3"])
-		#data["g1"] = ~(data["g2"]) & ~(data["g3"])
-		#data["M1"] = (P1).mass*data["g1"] + (P2).mass*data["g2"] + (P3).mass*data["g3"] # pick NN guess
-		#data["M2"] = (P1).mass*(data["p1"] & ~(data["g1"])) + (P2).mass*(data["p2"] & ~(data["g2"])) + (P3).mass*(data["p3"] & ~(data["g3"])) # pick the possible pair NOT chosen by the NN
-		# ----------------------------------------------------------------------------------------------------------------
 

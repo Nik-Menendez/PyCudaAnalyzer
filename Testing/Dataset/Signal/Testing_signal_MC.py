@@ -2,12 +2,10 @@ import os
 from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
-#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/signal/"
-input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/signal/signal_sel/pt/"
-#input_dir = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/signal/control_sel/"
+input_dir = "/afs/cern.ch/user/n/nimenend/public/"
 tree_path_in_file = "passedEvents"
 
-mass_points = [4,5,10,15,30,60]
+mass_points = [5]
 w_xs_dict = {
 	4:  7.474,
 	5:  5.453,
@@ -31,7 +29,7 @@ for m in mass_points:
 	w_sample_dict[m].sumw = 500000
 # ____________________________________________________________________________________________________________________________________________ ||
 
-w_signal = [w_sample_dict[4],w_sample_dict[5],w_sample_dict[10],w_sample_dict[15],w_sample_dict[30],w_sample_dict[60]]
+w_signal = [w_sample_dict[5]]
 
 for m,sig in w_sample_dict.items():
     sig.branches = [

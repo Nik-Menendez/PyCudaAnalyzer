@@ -4,27 +4,18 @@ from hep.cms.Dataset.CMSDataset import CMSDataset
 from hep.root.TFile import TFile
 
 # ______________________________________________________________________ ||
-#input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/"
-input_dir 	= "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/signal_sel/iso/"
-#input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/control_sel/"
-input_dir   = "/cmsuf/data/store/user/t2/users/nikmenendez/skimmed/NanoAOD/2017/data/signal_sel/"
+input_dir = "/afs/cern.ch/user/h/hinguyen/public/"
 tree_path_in_file = "passedEvents"
 
 # ______________________________________________________________________ ||
 data2017 = CMSDataset(
         "Data2017",
-        [TFile(os.path.join(input_dir,"pt/total_data_no_dupe.root"),tree_path_in_file,),],
+        [TFile(os.path.join(input_dir,"test.root"),tree_path_in_file,),],
         isMC = False,
         )
 
-fake2017 = CMSDataset(
-        "Fake_Weight_Data2017",
-        [TFile(os.path.join(input_dir,"iso/total_data_no_dupe.root"),tree_path_in_file,),],
-        isMC = True,
-		skip_weight = True,
-        )
 # ____________________________________________________________________________________________________________________________________________ ||
-datas = [data2017,fake2017]
+datas = [data2017]
 
 for d in datas:
     d.branches = [

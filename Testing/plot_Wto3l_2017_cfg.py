@@ -27,7 +27,6 @@ plot_data = True
 
 if plot_data: dataset_list = bkgSamples_2017 + [data2017] + [w_sample_dict[5]]
 else: dataset_list = bkgSamples_2017 + [w_sample_dict[5]] #+ w_signal
-dataset_list = [w_sample_dict[4],w_sample_dict[5],w_sample_dict[10],w_sample_dict[15],w_sample_dict[30],w_sample_dict[60]]
 
 for d in dataset_list:
     d.lumi = 41.4*1000.
